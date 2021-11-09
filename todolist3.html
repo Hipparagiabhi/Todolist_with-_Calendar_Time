@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.main{
+    display: flex;
+    flex-direction:column;
+    background-color: aqua;
+    justify-content: center;
+    align-items: center;
+    height: 100Vh;
+    
+}
+
+.container{
+    border:2px solid black;
+    /* border-radius: 20px; */
+    background: beige;
+    height:400px;
+    width: 400px;
+    padding: 30px;
+   
+}
+
+input{
+    height: 30px;
+    width: 300px;
+}
+
+button{
+    height: 30px;  
+}
+
+.input1{
+    height: 30px;
+    width: 160px;
+    
+}
+
+.input2{
+    height: 30px;
+    width: 100px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+             <h2>Todo App</h2>
+             <input type="text" id="textbox1" placeholder="Add your new todo">
+             <input type="datetime-local" id="dis">
+             <button type ="button" id="btn1">Add Todo</button>
+             <ol class ="todolist" id="todolist">
+                  </ol>
+             <p class="demo" id=demo> </p>
+             <input class="input1" type="text" id="textbox2" placeholder="Add Number to delete task">
+             <button type ="button" id="btn3">Delete Single Task</button></br>
+            
+        </br>
+             <button type ="button" id="btn2">clear All</button>
+             
+             
+        </div>
+</div>
+
+    <Script>
+        
+        let addtodo=document.getElementById("textbox1");
+        let addtodo1=document.getElementById("textbox2");
+        let button=document.getElementById("btn1");
+        let button1=document.getElementById("btn2");
+        let button2=document.getElementById("btn3");
+        let todolist=document.getElementById("todolist");
+        let pending=document.getElementById("demo");
+        let newarray=[];
+        
+        
+    
+  
+
+        button.onclick=Addto;
+
+        function Addto(){
+            let obj={};
+            let date=document.getElementById("dis").value;
+            console.log(date);
+            let newdate=date.slice(0,10);
+            console.log(newdate);
+            let newtime=date.slice(11);
+            console.log(newtime);
+            let inputbox1=addtodo.value;
+            obj.todo=inputbox1;
+            obj.date=newdate;
+            obj.time=newtime;
+            newarray.push(obj);
+            console.log(newarray);
+            let newtask= "";
+            newarray.forEach(function(element){
+                                //  newtask+= `<li> Todo is ${JSON.stringify(element)} <li>`;
+                                newtask+= `<li> Todo is ${element.todo} Date is ${element.date} and time is ${element.time } </li>`;
+                            })
+
+            todolist.innerHTML= newtask;
+            addtodo.value= "";
+            let pendinglist=newarray.length;
+            console.log(pendinglist);
+            document.getElementById("demo").innerHTML=`You have ${pendinglist}  pending Todo List`;
+            }
+
+        button1.onclick=clrall;
+
+        function clrall(){
+            newarray=[];
+            console.log(newarray);
+            document.getElementById("todolist").innerHTML=newarray;
+            let pendinglist1=newarray.length;
+            document.getElementById("demo").innerHTML=`You have ${pendinglist1} pending Todo List`;
+            }
+
+
+        button2.onclick=singledelete;
+
+        function singledelete(){
+                let inputbox2=addtodo1.value;
+                console.log(inputbox2);
+                let finaloutput=newarray;
+                console.log(newarray);
+                let newtask2="";
+              
+                let newarray2=newarray.filter(function(element,index){
+                   if(index!=inputbox2)
+                        return true;
+                    return false;
+                })
+
+                console.log(newarray2);
+                newarray2.forEach(function(element){
+                                 newtask2+= `<li>${element}</li>`;
+                })
+                todolist.innerHTML= newtask2;
+                let pendinglist2=newarray2.length;
+                document.getElementById("demo").innerHTML=`You have ${pendinglist2}  pending Todo List`;            
+            }
+
+                            
+    </script>
+</body>
+</html>
